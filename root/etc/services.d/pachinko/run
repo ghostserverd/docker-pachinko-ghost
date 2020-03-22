@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv bash
+
+LISTEN_PORT=${PACHINKO_PORT:-4545}
+
+exec \
+  s6-setuidgid abc /app/shell2http \
+    -port=${LISTEN_PORT} \
+    -show-errors \
+    -include-stderr \
+    -form /pachinko \
+    "/pachinko sort --config /config/pachinko.yml"
